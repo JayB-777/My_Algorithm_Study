@@ -1,8 +1,6 @@
-
-
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,14 +8,16 @@ public class Main {
         int N = sc.nextInt();
         int M = sc.nextInt();
 
-        Set<String> stringSet = new HashSet<>();
+        Map<String, Integer> wordMap = new HashMap<>();
         for (int i = 0; i < N; i++) {
-            stringSet.add(sc.next());
+            String word = sc.next();
+            wordMap.put(word, wordMap.getOrDefault(word, 0) + 1);
         }
 
         int count = 0;
         for (int i = 0; i < M; i++) {
-            if (stringSet.contains(sc.next())) {
+            String word = sc.next();
+            if (wordMap.containsKey(word)) {
                 count++;
             }
         }
