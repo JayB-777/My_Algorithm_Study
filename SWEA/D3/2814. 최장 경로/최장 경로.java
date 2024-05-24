@@ -4,13 +4,12 @@ import java.util.*;
 class Solution {
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
-        int T = sc.nextInt(); // number of test cases
+        int T = sc.nextInt();
 
         for (int tc = 1; tc <= T; tc++) {
-            int N = sc.nextInt(); // number of vertices
-            int M = sc.nextInt(); // number of edges
+            int N = sc.nextInt();
+            int M = sc.nextInt();
 
-            // Create an adjacency matrix to represent the graph
             int[][] graph = new int[N + 1][N + 1];
             for (int i = 0; i < M; i++) {
                 int u = sc.nextInt();
