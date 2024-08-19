@@ -9,16 +9,11 @@ while(True):
     if(n % i == 0):
       arr.append(i)
 
-  sum = 0
+  sum_arr = 0
   for i in arr:
-    sum += i
+    sum_arr += i
 
-  if sum == n:
-    print(n, "=", end = " ")
-    for i in range(0, len(arr)):
-      if(i == len(arr) - 1):
-        print(arr[i])
-      else:
-        print(arr[i], "+", end = " ")
+  if sum_arr == n:
+    print(f"{n} =", " + ".join(map(str, arr)))
   else:
-    print(n, "is NOT perfect.")
+    print(f"{n} is NOT perfect.")
