@@ -1,48 +1,40 @@
+
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Stack;
-import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
+        int T = Integer.parseInt(br.readLine());
 
-        int num = Integer.parseInt(br.readLine());
-
-        for(int i=0; i<num; i++){
-            sb.append(solve(br.readLine())).append("\n");
+        for (int i = 0; i < T; i++) {
+            char[] arr = br.readLine().toCharArray();
+            System.out.println(solution(arr));
         }
-        System.out.println(sb);
 
     }
 
-    public static String solve(String str){
-
+    private static String solution(char[] arr) {
         Stack<Character> stack = new Stack<>();
-
-        for(int i=0; i<str.length(); i++){
-            char c = str.charAt(i);
-
-            if(c=='(')
-                stack.push(c);
-
-            else if (stack.empty())
+        for (int i = 0; i < arr.length; i++) {
+            char character = arr[i];
+            if (character == '(') {
+                stack.push(character);
+            } else if (stack.isEmpty()) {
                 return "NO";
-
-            else
+            } else {
                 stack.pop();
-
+            }
         }
 
-        if(stack.empty()){
+        if (stack.isEmpty()) {
             return "YES";
-        }
-        else
+        } else {
             return "NO";
-
+        }
     }
+
 }
