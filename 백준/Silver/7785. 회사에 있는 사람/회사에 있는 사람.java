@@ -1,38 +1,44 @@
 
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.HashMap;
+import java.util.List;
+import java.util.StringTokenizer;
 
-public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        LinkedHashMap<String, String> inOutLog = new LinkedHashMap<>();
+public class Main{
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader((System.in)));
+        int N = Integer.parseInt(br.readLine());
+
+        HashMap<String, String> hashMap = new HashMap<>();
 
         for (int i = 0; i < N; i++) {
-            String name = sc.next();
-            String enterOrLeave = sc.next();
-            if (enterOrLeave.equals("leave")) {
-                inOutLog.replace(name, enterOrLeave);
-            } else {
-                inOutLog.put(name, enterOrLeave);
-            }
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            String name = st.nextToken();
+            String status = st.nextToken();
+            hashMap.put(name, status);
         }
 
-        ArrayList<String> answerArr = new ArrayList<>();
-        for (Map.Entry<String, String> entry : inOutLog.entrySet()) {
-            if (entry.getValue().equals("enter")) {
-                answerArr.add(entry.getKey());
-            }
-        }
+        solution(hashMap);
 
-        Collections.sort(answerArr, Collections.reverseOrder());
-        for (String answer : answerArr) {
-            System.out.println(answer);
-        }
     }
 
+    private static void solution(HashMap<String, String> hashMap) {
+        List<String> leavedPersonNameArr = new ArrayList<>();
+        for (String key : hashMap.keySet()) {
+            String status = hashMap.get(key);
+            if (status.equals("enter")) {
+                leavedPersonNameArr.add(key);
+            }
+        }
+
+        Collections.sort(leavedPersonNameArr, Collections.reverseOrder());
+        for (String leavedPersonName : leavedPersonNameArr) {
+            System.out.println(leavedPersonName);
+        }
+    }
 }
