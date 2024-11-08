@@ -23,14 +23,14 @@ public class Main {
 
         int count = 0;
 
-        // 행 확인
+        // 행
         for (int i = 0; i < N; i++) {
             if (isValidPath(map[i], L)) {
                 count++;
             }
         }
 
-        // 열 확인
+        //열
         for (int i = 0; i < N; i++) {
             int[] col = new int[N];
             for (int j = 0; j < N; j++) {
@@ -42,37 +42,47 @@ public class Main {
         }
 
         System.out.println(count);
-
     }
 
     private static boolean isValidPath(int[] path, int L) {
-        int n = path.length;
-        boolean[] used = new boolean[n]; // 경사로 설치 여부
+        int N = path.length;
+        boolean[] used = new boolean[N];
 
-        for (int i = 0; i < n - 1; i++) {
+        for (int i = 0; i < N - 1; i++) {
+
+            //높이가 같은 경우
             if (path[i] == path[i + 1]) {
-                continue; // 높이가 같으면 진행
+                continue;
             }
 
-            if (path[i] + 1 == path[i + 1]) { // 상승하는 경사로
+            //상승
+            if (path[i] + 1 == path[i + 1]) {
                 for (int j = 0; j < L; j++) {
-                    // 경사로 설치 공간 부족한 경우, 경사로를 설치한 공간의 높이가 다른 경우, 경사로가 설치되어있는 경우
+                    // 경사로 놓을 칸이 부족한 경우, 경사로 설치 공간의 높이가 일정하지 않은 경우, 이미 경사로가 설치된 경우
                     if (i - j < 0 || path[i - j] != path[i] || used[i - j]) {
                         return false;
                     }
                     used[i - j] = true;
                 }
-            } else if (path[i] - 1 == path[i + 1]) { // 하강하는 경사로
+            }
+
+            //하강
+            else if (path[i] - 1 == path[i + 1]) {
                 for (int j = 0; j < L; j++) {
-                    // 경사로가 map을 넘어가는 경우, 경사로를 설치한 공간의 높이가 다른 경우, 경사로가 설치되어있는 경우
-                    if (i + 1 + j >= n || path[i + 1 + j] != path[i + 1] || used[i + 1 + j]) {
+                    // 경사로를 놓았을 시 map을 넘어가는 경우, 경사로 설치공간의 높이가 일정하지 않는 경우, 이미 경사로가 설치된 경우
+                    if (i + 1 + j >= N || path[i + 1 + j] != path[i + 1] || used[i + 1 + j]) {
                         return false;
                     }
                     used[i + 1 + j] = true;
                 }
-            } else {
-                return false; // 높이 차이가 1보다 크면 불가능
+
             }
+
+            // 높이 차이가 1이 아닌 경우
+            else {
+                return false;
+            }
+
         }
 
         return true;
