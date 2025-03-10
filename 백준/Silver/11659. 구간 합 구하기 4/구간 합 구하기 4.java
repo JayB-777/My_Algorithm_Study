@@ -1,43 +1,62 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
 
-public class Main {
-    public static void main(String[] args) throws IOException {
+
+import java.util.*;
+import java.io.*;
+
+class Main {
+    public static void main(String args[]) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int M = Integer.parseInt(st.nextToken());
+        
         int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+        
+//        System.out.println(N + " " +  M);
 
-        long[] arr = new long[M];
-        long sum = 0;
-
+        // 배열입력과 동시에 합배열 생성
+        int[] arr = new int[N];
+        int[] sumArr = new int[N];
+        
         st = new StringTokenizer(br.readLine());
-        for(int i=0; i<M; i++){
-            arr[i] = Integer.parseInt(st.nextToken());
-            sum = sum + arr[i];
-            arr[i] = sum;
+        for(int i = 0; i < N; i++) {
+        	int input = Integer.parseInt(st.nextToken());
+        	
+        	if(i == 0) {
+        		arr[i] = input;
+        		sumArr[i] = input;
+        	} else {
+        		arr[i] = input;
+            	sumArr[i] = sumArr[i - 1] + input;
+        	}
         }
-
-        for(int i=0; i<N;i++){
-
-            st = new StringTokenizer(br.readLine());
-            int a = Integer.parseInt(st.nextToken());
-            int b = Integer.parseInt(st.nextToken());
-
-            if(a==1)
-                System.out.println(arr[b-1]);
-            else if (a!=1)
-                System.out.println(arr[b-1]-arr[a-2]);
-            else if (a==b)
-                System.out.println(arr[a-1]);
-
-
+        
+//        System.out.println(Arrays.toString(arr));
+//        System.out.println(Arrays.toString(sumArr));
+        
+        for(int i = 0; i < M; i++) {
+        	st = new StringTokenizer(br.readLine());
+        	int startIndex = Integer.parseInt(st.nextToken());
+        	int endIndex = Integer.parseInt(st.nextToken());
+        	
+        	int result = 0;
+        	
+        	if(startIndex == 1) {
+        		result = sumArr[endIndex - 1];
+        	} else {
+        		result = sumArr[endIndex - 1] - sumArr[startIndex - 2];
+        	}
+        	
+        	System.out.println(result);
         }
-
-
-
-
+        
     }
 }
+
+
+
+
+
+
+
+
+
