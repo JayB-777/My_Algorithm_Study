@@ -1,53 +1,56 @@
 
+import java.util.*;
+import java.io.*;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+public class Main{
+	
+	static boolean visited[];
+	static List<Integer>[] arr;
+	
+	public static void main(String[] args) throws IOException{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		int N = Integer.parseInt(st.nextToken());
+		int M = Integer.parseInt(st.nextToken());
+		visited = new boolean[N + 1];
+		arr = new ArrayList[N + 1];
+		
+		for(int i = 1; i < N + 1; i++) {
+			arr[i] = new ArrayList<>();
+		}
+		
+		for(int i = 0; i < M; i++) {
+			st = new StringTokenizer(br.readLine());
+			int u = Integer.parseInt(st.nextToken());
+			int v = Integer.parseInt(st.nextToken());
+			arr[u].add(v);
+			arr[v].add(u);
+		}
+		
+		int result = 0;
+		
+		for(int i = 1; i < N + 1; i++) {
+			if(!visited[i]) {
+				result++;
+				dfs(i);
+			}
+			
+		}
+		System.out.println(result);
+		
+	}
 
-public class Main {
-    static ArrayList<Integer>[] arrayLists;
-    static boolean visited[];
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int M = sc.nextInt();
-
-        arrayLists = new ArrayList[N + 1];
-        visited = new boolean[N + 1];
-
-        for (int i = 1; i <= N; i++) {
-            arrayLists[i] = new ArrayList<>();
-        }
-
-        for (int i = 0; i < M; i++) {
-            int s = sc.nextInt();
-            int e = sc.nextInt();
-
-            arrayLists[s].add(e);
-            arrayLists[e].add(s);
-        }
-
-        int count = 0;
-        for (int i = 1; i <= N; i++) {
-            if (!visited[i]) {
-                count++;
-                DFS(i);
-            }
-        }
-
-        System.out.println(count);
-    }
-
-    static void DFS(int v) {
-        if (visited[v]) {
-            return;
-        }
-        visited[v] = true;
-        for (int i : arrayLists[v]) {
-            if (visited[i] == false) {
-                DFS(i);
-            }
-        }
-    }
-
+	private static void dfs(int currentNode) {
+		if(visited[currentNode]) {
+			return;
+		}
+		visited[currentNode] = true;
+		for(int i : arr[currentNode]) {
+			if(!visited[i]) {
+				dfs(i);
+			}
+		}
+		
+	}
 }
